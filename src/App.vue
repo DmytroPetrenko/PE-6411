@@ -1,27 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+	<!-- don`t use router because just one page needed -->
+	<el-main>
+		<the-inventory />
+	</el-main>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import HelloWorld from "./components/HelloWorld.vue";
+import { defineComponent } from "vue"
+import TheInventory from "@/components/TheInventory.vue"
 
-@Options({
-  components: {
-    HelloWorld,
-  },
+export default defineComponent({
+	components: { TheInventory },
 })
-export default class App extends Vue {}
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+	font-family: Avenir, Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: #2c3e50;
+	margin-top: 60px;
+
+	.mt-10 {
+		margin-top: 10px;
+	}
+	.ml-5 {
+		margin-left: 5px;
+	}
 }
 </style>
