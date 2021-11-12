@@ -10,7 +10,7 @@ const generalState = reactive({
 			package: "4 LB",
 			availableUnits: 22,
 			category: "Fruits",
-			lastUpdates: "2016-05-01 08:21:24",
+			lastUpdated: "2016-05-01 08:21:24",
 			qty: 156723,
 		},
 		{
@@ -19,7 +19,7 @@ const generalState = reactive({
 			package: "7 CT",
 			availableUnits: 123,
 			category: "Fruits",
-			lastUpdates: "2019-04-23 08:21:23",
+			lastUpdated: "2019-04-23 08:21:23",
 			qty: 123243,
 		},
 		{
@@ -28,7 +28,7 @@ const generalState = reactive({
 			package: "8 CT",
 			availableUnits: 2,
 			category: "Fruits",
-			lastUpdates: "2016-05-01 08:21:23",
+			lastUpdated: "2016-05-01 08:21:23",
 			qty: 34534123,
 		},
 		{
@@ -37,7 +37,7 @@ const generalState = reactive({
 			package: "40 LB",
 			availableUnits: 23,
 			category: "Vegetables",
-			lastUpdates: "2020-05-01 08:21:23",
+			lastUpdated: "2020-05-01 08:21:23",
 			qty: 8143223,
 		},
 	],
@@ -74,7 +74,7 @@ const generalState = reactive({
 		},
 		{
 			name: "Last updated",
-			propName: "lastUpdates",
+			propName: "lastUpdated",
 			isSortable: true,
 			isEditable: false,
 		},
