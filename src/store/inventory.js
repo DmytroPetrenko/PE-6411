@@ -1,8 +1,6 @@
-import { computed, reactive } from "vue"
-import { withState } from "./helpers/helper"
+import { reactive } from "vue"
 
-export default () =>
-	withState({ getTableData, getPropsAndLabels }, generalState)
+export default () => generalState
 
 const generalState = reactive({
 	tableData: [
@@ -44,29 +42,47 @@ const generalState = reactive({
 		},
 	],
 	tableLabels: [
-		{ name: "Item code", isSortable: false },
-		{ name: "Product", isSortable: true },
-		{ name: "Package", isSortable: true },
+		{
+			name: "Item code",
+			propName: "itemCode",
+			isSortable: false,
+			isEditable: false,
+		},
+		{
+			name: "Product",
+			propName: "product",
+			isSortable: true,
+			isEditable: false,
+		},
+		{
+			name: "Package",
+			propName: "package",
+			isSortable: true,
+			isEditable: false,
+		},
 		{
 			name: "Available units",
+			propName: "availableUnits",
 			isSortable: true,
+			isEditable: false,
 		},
-		{ name: "Category", isSortable: false },
-		{ name: "Last updated", isSortable: true },
-		{ name: "Edit available quntity", isSortable: false },
+		{
+			name: "Category",
+			propName: "category",
+			isSortable: false,
+			isEditable: false,
+		},
+		{
+			name: "Last updated",
+			propName: "lastUpdates",
+			isSortable: true,
+			isEditable: false,
+		},
+		{
+			name: "Edit available quantity",
+			propName: "qty",
+			isSortable: false,
+			isEditable: true,
+		},
 	],
-})
-const getTableData = computed(() => generalState.tableData)
-const getPropsAndLabels = computed(() => {
-	const propsAndLabels = []
-	const props = Object.keys(getTableData.value[0])
-	for (let i = 0; i < generalState.tableLabels.length; i++) {
-		const label = generalState.tableLabels[i]
-		const prop = props[i]
-		propsAndLabels.push({
-			prop,
-			label,
-		})
-	}
-	return propsAndLabels
 })

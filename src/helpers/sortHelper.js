@@ -1,8 +1,8 @@
-const sortNumbers = (a: number, b: number) => {
+const sortNumbers = (a, b) => {
 	return a - b
 }
 
-const sortString = (a: string, b: string) => {
+const sortString = (a, b) => {
 	if (a > b) {
 		return 1
 	}
@@ -12,16 +12,16 @@ const sortString = (a: string, b: string) => {
 	return 0
 }
 
-const sortWeight = (a: string, b: string) => {
+const sortWeight = (a, b) => {
 	const num1 = convertToCt(a)
 	const num2 = convertToCt(b)
 
 	return sortNumbers(num1, num2)
 }
 
-const convertToCt = (str: string) => {
+const convertToCt = (str) => {
 	const match = str.match(/\d+/g)
-	const num: number = match ? +match[0] : 0
+	const num = match ? +match[0] : 0
 	return str.includes("LB") ? num * 2267.96185 : num
 }
 

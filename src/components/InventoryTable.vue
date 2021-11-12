@@ -7,22 +7,22 @@
 		:suffix-icon="searchIcon"
 	/>
 	<el-table
-		:data="inventoryTableData.filter((data) => dataFilter(data))"
+		:data="dataFiltered"
 		:default-sort="{ prop: 'product', order: 'ascending' }"
 		header-cell-class-name="table-header-row"
 		style="width: 100%"
 	>
 		<el-table-column
-			v-for="item in inventoryPropsAndLabelsNotEditable"
-			:key="item.prop"
-			:prop="item.prop"
-			:label="item.label.name"
-			:sortable="item.label.isSortable"
-			:sort-method="(a, b) => sort(a, b, item.prop)"
-			:class-name="getClassName(item.prop)"
+			v-for="item in editableLabels"
+			:key="item.propName"
+			:prop="item.propName"
+			:label="item.name"
+			:sortable="item.isSortable"
+			:sort-method="(a, b) => sort(a, b, item.propName)"
+			:class-name="getClassName(item.propName)"
 			label-class-name="table-lable"
 		/>
-		<el-table-column :prop="qty.prop" :label="qty.label.name">
+		<el-table-column :prop="qty.propName" :label="qty.name">
 			<template v-slot="scope">
 				<el-input
 					size="small"
@@ -35,39 +35,43 @@
 		</el-table-column>
 	</el-table>
 </template>
-<script lang="ts">
+<script>
 import { computed, defineComponent, ref } from "vue"
-import useInventoryStore from "@/store/inventory"
 import { sortHelper } from "@/helpers/sortHelper"
-import { Search as searchIcon } from "@element-plus/icons"
-import Inventory from "@/interfaces/Inventory"
 
 export default defineComponent({
-	setup() {
-		const inventoryStore = useInventoryStore()
-		const inventoryTableData = inventoryStore.getTableData.value
-		const inventoryPropsAndLabels = inventoryStore.getPropsAndLabels.value
-		const inventoryPropsAndLabelsNotEditable = computed(() => {
-			return inventoryPropsAndLabels.slice(
-				0,
-				inventoryPropsAndLabels.length - 1
-			)
-		})
-		const qty = computed(() => {
-			return inventoryPropsAndLabels.slice(-1)[0]
-		})
+	props: {
+		data: {
+			type: Array,
+			required: true,
+		},
+		editableLabels: {
+			type: Array,
+			required: true,
+		},
+		qty: {
+			type: Object,
+			required: true,
+		},
+		searchIcon: {
+			type: Object,
+			required: true,
+		},
+	},
+	setup(props) {
 		const search = ref("")
 
-		const dataFilter = (data: Inventory) => {
-			return (
-				!search.value ||
-				data.product.toLowerCase().includes(search.value.toLowerCase()) ||
-				data.category.toLowerCase().includes(search.value.toLowerCase()) ||
-				data.itemCode.toLowerCase().includes(search.value.toLowerCase())
+		const dataFiltered = computed(() => {
+			return props.data.filter(
+				(obj) =>
+					!search.value ||
+					obj.product.toLowerCase().includes(search.value.toLowerCase()) ||
+					obj.category.toLowerCase().includes(search.value.toLowerCase()) ||
+					obj.itemCode.toLowerCase().includes(search.value.toLowerCase())
 			)
-		}
+		})
 
-		const sort = (obj1: any, obj2: any, column: string) => {
+		const sort = (obj1, obj2, column) => {
 			const a = obj1[column]
 			const b = obj2[column]
 
@@ -82,7 +86,7 @@ export default defineComponent({
 			return sortHelper.sortString(a, b)
 		}
 
-		const getClassName = (prop: string) => {
+		const getClassName = (prop) => {
 			if (prop === "product") {
 				return prop
 			}
@@ -91,12 +95,11 @@ export default defineComponent({
 
 		return {
 			search,
-			inventoryTableData,
-			inventoryPropsAndLabelsNotEditable,
-			qty,
+			editableLabels: props.editableLabels,
+			qty: props.qty,
+			searchIcon: props.searchIcon,
+			dataFiltered,
 			sort,
-			dataFilter,
-			searchIcon,
 			getClassName,
 		}
 	},
