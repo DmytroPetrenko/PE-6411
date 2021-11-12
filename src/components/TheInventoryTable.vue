@@ -40,6 +40,7 @@ import { computed, defineComponent, ref } from "vue"
 import useInventoryStore from "@/store/inventory"
 import { sortHelper } from "@/helpers/sortHelper"
 import { Search as searchIcon } from "@element-plus/icons"
+import Inventory from "@/interfaces/Inventory"
 
 export default defineComponent({
 	setup() {
@@ -57,7 +58,7 @@ export default defineComponent({
 		})
 		const search = ref("")
 
-		const dataFilter = (data: any) => {
+		const dataFilter = (data: Inventory) => {
 			return (
 				!search.value ||
 				data.product.toLowerCase().includes(search.value.toLowerCase()) ||
@@ -66,7 +67,7 @@ export default defineComponent({
 			)
 		}
 
-		const sort = (obj1: any, obj2: any, column: any) => {
+		const sort = (obj1: any, obj2: any, column: string) => {
 			const a = obj1[column]
 			const b = obj2[column]
 
