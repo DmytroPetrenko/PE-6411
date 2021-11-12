@@ -104,7 +104,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .inventory-table-search-input {
-	max-width: 400px;
+	max-width: 350px;
 	margin: 10px;
 }
 .el-input--prefix::v-deep {
